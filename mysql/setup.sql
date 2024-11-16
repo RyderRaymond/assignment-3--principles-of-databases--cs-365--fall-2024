@@ -1,18 +1,18 @@
 /* Setup for the passwords database*/
 
-DROP DATABASE IF EXISTS passwords;
+DROP DATABASE IF EXISTS student_passwords;
 
-CREATE DATABASE passwords;
+CREATE DATABASE student_passwords;
 
 
 /* Create a new user for this database. Not required, but included anyway.*/
 
-DROP USER IF EXISTS 'passwords_db_user'@'localhost';
+DROP USER IF EXISTS 'passwords_user'@'localhost';
 
-CREATE USER 'passwords_db_user'@'localhost' IDENTIFIED BY 'HVGyt789uIOJknbhvgytf&^89uionjk';
-GRANT ALL PRIVILEGES ON passwords.*  TO 'passwords_db_user'@'localhost';
+CREATE USER 'passwords_user'@'localhost' IDENTIFIED BY 'HVGyt789uIOJknbhvgytf&^89uionjk';
+GRANT ALL PRIVILEGES ON passwords.*  TO 'passwords_user'@'localhost';
 
-use passwords;
+use student_passwords;
 
 
 /* Set up encryption */
