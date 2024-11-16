@@ -1,26 +1,18 @@
 /* Setup for the passwords database*/
-
 DROP DATABASE IF EXISTS student_passwords;
-
 CREATE DATABASE student_passwords;
 
-
 /* Create a new user for this database. Not required, but included anyway.*/
-
 DROP USER IF EXISTS 'passwords_user'@'localhost';
-
 CREATE USER 'passwords_user'@'localhost' IDENTIFIED BY 'HVGyt789uIOJknbhvgytf&^89uionjk';
 GRANT ALL PRIVILEGES ON passwords.*  TO 'passwords_user'@'localhost';
 
 use student_passwords;
 
-
 /* Set up encryption */
-
 SET block_encryption_mode = 'aes-256-cbc';
 SET @key_str = UNHEX(SHA2('my secret passphrase', 256));
 SET @init_vector = RANDOM_BYTES(16);
-
 
 /* Create the tables for the database */
 
@@ -72,8 +64,6 @@ CREATE TABLE IF NOT EXISTS accounts (
     ON DELETE CASCADE
 );
 
-
-
 /* Insert values for the database */
 INSERT INTO users (first_name, last_name) VALUES
   ('John', 'Smith'),
@@ -82,15 +72,12 @@ INSERT INTO users (first_name, last_name) VALUES
   ('Roy', 'Vanegas'),
   ('Carolyn', 'Rosiene');
 
-
-
 INSERT INTO websites (site_name, url) VALUES
   ('Youtube', 'https://www.youtube.com/'),
   ('GitHub', 'https://github.com/'),
   ('Crunchyroll', 'https://www.crunchyroll.com/'),
   ('Uhart blackboard', 'http://blackboard.hartford.edu/'), -- pretend blackboard only has http to demonstrate getting only accounts associated with https URLs
   ('Netflix', 'https://www.netflix.com/browse');
-
 
 INSERT INTO accounts (username, password, email_address, user_id, site_id, comment) VALUES
   ('jsmith', AES_ENCRYPT('5678JohnSmithIsTheBest62374uerfjncb', @key_str, @init_vector), 'jsmith@gmail.com', 1, 1, 'This will be the most epic youtube account ever.'),
