@@ -11,8 +11,16 @@ use student_passwords;
 
 /* Set up encryption */
 SET block_encryption_mode = 'aes-256-cbc';
+
+-- Set the key string and init vector for encryption
+SET @key_str = 0xA7E845B0854294DA9AA743B807CB67B19647C1195EA8120369F3D12C70468F29;
+SET @init_vector = 0xA55B9BD9476FBF3F137C1D9E28205D94;
+
+/*
+Values for the key string and init vector were obtained by running this to obtain values
 SET @key_str = UNHEX(SHA2('my secret passphrase', 256));
 SET @init_vector = RANDOM_BYTES(16);
+*/
 
 /* Create the tables for the database */
 
