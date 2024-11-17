@@ -8,19 +8,12 @@ function search($search) {
             DBPASS
         );
 
-        $init_vector = "0xA55B9BD9476FBF3F137C1D9E28205D94";
-        $set_init_vector_query = "SET @init_vector = 0xA55B9BD9476FBF3F137C1D9E28205D94;";
-        $db -> execute($set_init_vector_query);
-        $statement = $db -> prepare($set_init_vector_query);
+        $set_encryption_mode_query = "SET block_encryption_mode = 'aes-256-cbc';";
+        $statement = $db -> prepare($set_encryption_mode_query);
         $statement -> execute();
 
-        $key_str = "0xA7E845B0854294DA9AA743B807CB67B19647C1195EA8120369F3D12C70468F29";
-        $set_key_string_query = "SET @key_str = 0xA7E845B0854294DA9AA743B807CB67B19647C1195EA8120369F3D12C70468F29;";
-        $db -> execute($set_key_string_query);
-        $statement = $db -> prepare($set_key_string_query);
-        $statement -> execute();
 
-        $select_query = "SELECT site_id, user_id, first_name, last_name, username, CAST(AES_DECRYPT(password, $key_str, $init_vector) AS CHAR) AS 'password', email_address, comment, time_stamp, site_name, url FROM registers_at JOIN users USING (user_id) JOIN websites USING (site_id) WHERE site_id LIKE '%$search%' OR user_id LIKE '%$search%' OR first_name LIKE '%$search%' OR last_name LIKE '%$search%' OR username LIKE '%$search%' OR password LIKE '%$search%' OR email_address LIKE '%$search%' OR comment LIKE '%$search%' OR time_stamp LIKE '%$search%' OR site_name LIKE '%$search%' OR url LIKE '%$search%'";
+        $select_query = "SELECT site_id, user_id, first_name, last_name, username, CAST(AES_DECRYPT(password, " . KEY_STR .", " . INIT_VECTOR . ") AS CHAR) AS 'password', email_address, comment, time_stamp, site_name, url FROM registers_at JOIN users USING (user_id) JOIN websites USING (site_id) WHERE site_id LIKE '%$search%' OR user_id LIKE '%$search%' OR first_name LIKE '%$search%' OR last_name LIKE '%$search%' OR username LIKE '%$search%' OR password LIKE '%$search%' OR email_address LIKE '%$search%' OR comment LIKE '%$search%' OR time_stamp LIKE '%$search%' OR site_name LIKE '%$search%' OR url LIKE '%$search%'";
 
         $statement = $db -> prepare($select_query);
         $statement -> execute();
