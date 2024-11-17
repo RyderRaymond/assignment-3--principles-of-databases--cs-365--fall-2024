@@ -12,9 +12,7 @@ function search($search) {
         $statement = $db -> prepare($set_encryption_mode_query);
         $statement -> execute();
 
-
-        $select_query = "SELECT site_id, user_id, first_name, last_name, username, CAST(AES_DECRYPT(password, " . KEY_STR .", " . INIT_VECTOR . ") AS CHAR) AS 'password', email_address, comment, time_stamp, site_name, url FROM registers_at JOIN users USING (user_id) JOIN websites USING (site_id) WHERE site_id LIKE '%$search%' OR user_id LIKE '%$search%' OR first_name LIKE '%$search%' OR last_name LIKE '%$search%' OR username LIKE '%$search%' OR password LIKE '%$search%' OR email_address LIKE '%$search%' OR comment LIKE '%$search%' OR time_stamp LIKE '%$search%' OR site_name LIKE '%$search%' OR url LIKE '%$search%'";
-
+        $select_query = "SELECT user_id, first_name, last_name, site_id, site_name, url, username, CAST(AES_DECRYPT(password, " . KEY_STR .", " . INIT_VECTOR . ") AS CHAR) AS 'password', email_address, comment, time_stamp FROM registers_at JOIN users USING (user_id) JOIN websites USING (site_id) WHERE site_id LIKE '%$search%' OR user_id LIKE '%$search%' OR first_name LIKE '%$search%' OR last_name LIKE '%$search%' OR username LIKE '%$search%' OR password LIKE '%$search%' OR email_address LIKE '%$search%' OR comment LIKE '%$search%' OR time_stamp LIKE '%$search%' OR site_name LIKE '%$search%' OR url LIKE '%$search%'";
         $statement = $db -> prepare($select_query);
         $statement -> execute();
 
@@ -24,17 +22,17 @@ function search($search) {
             echo "      <table>\n";
             echo "        <thead>\n";
             echo "          <tr>\n";
-            echo "            <th>Website ID</th>\n";
             echo "            <th>User ID</th>\n";
             echo "            <th>User First Name</th>\n";
-            echo "            <th>User Last Name</th>\n";
+            echo "            <th>Last Name</th>\n";
+            echo "            <th>Website ID</th>\n";
+            echo "            <th>Website Name</th>\n";
+            echo "            <th>URL</th>\n";
             echo "            <th>Username</th>\n";
             echo "            <th>Password</th>\n";
             echo "            <th>Email Address</th>\n";
             echo "            <th>Comment</th>\n";
             echo "            <th>Timestamp</th>\n";
-            echo "            <th>Website Name</th>\n";
-            echo "            <th>Website URL</th>\n";
             echo "          </tr>\n";
             echo "        </thead>\n";
             echo "        <tbody>\n";
