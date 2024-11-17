@@ -32,8 +32,8 @@ CREATE TABLE IF NOT EXISTS websites (
   PRIMARY KEY (site_id)
 );
 
-/* Accounts table holds information for a user's account at a website, including their username and password. */
-CREATE TABLE IF NOT EXISTS accounts (
+/* registers_at table holds information for a user's account at a website, including their username and password. It is the relationship between users and websites.*/
+CREATE TABLE IF NOT EXISTS registers_at (
   username VARCHAR(128) NOT NULL,
   password VARBINARY(512) NOT NULL,
   email_address VARCHAR(128) NOT NULL,
@@ -79,7 +79,7 @@ INSERT INTO websites (site_name, url) VALUES
   ('Uhart blackboard', 'http://blackboard.hartford.edu/'), -- pretend blackboard only has http to demonstrate getting only accounts associated with https URLs
   ('Netflix', 'https://www.netflix.com/browse');
 
-INSERT INTO accounts (username, password, email_address, user_id, site_id, comment) VALUES
+INSERT INTO registers_at (username, password, email_address, user_id, site_id, comment) VALUES
   ('jsmith', AES_ENCRYPT('5678JohnSmithIsTheBest62374uerfjncb', @key_str, @init_vector), 'jsmith@gmail.com', 1, 1, 'This will be the most epic youtube account ever.'),
   ('jsmith95', AES_ENCRYPT('4521485bestpassword*290', @key_str, @init_vector), 'jsmith@outlook.com', 1, 2, 'Going to make the best projects on github.'),
   ('johsmith', AES_ENCRYPT('F5q`s2K4@[N4=I+G9', @key_str, @init_vector), 'johsmith@hartford.edu', 1, 4, 'UHART blackboard account'),
