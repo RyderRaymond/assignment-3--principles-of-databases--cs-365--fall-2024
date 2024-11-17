@@ -5,9 +5,7 @@
  * directory.
  */
 
-define("DBNAME", "student_passwords");
-define("DBHOST", "localhost");
-define("DBUSER", "passwords_user");
-define("DBPASS", "HVGyt789uIOJknbhvgytf&^89uionjk");
-
-$base_url = dirname(__FILE__);
+const DBNAME = "student_passwords";
+const DBHOST = "localhost";
+const DBUSER = "passwords_user";
+const DBPASS = "HVGyt789uIOJknbhvgytf&^89uionjk";
