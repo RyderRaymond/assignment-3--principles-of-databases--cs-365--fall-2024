@@ -166,6 +166,13 @@ if ($option != null) {
         case 3:
             insert_user($_POST['user-first-name'], $_POST['user-last-name']);
             break;
+        case 4:
+            insert_website($_POST['website-name'], $_POST['website-url']);
+            break;
+        case 5:
+            insert_account($_POST['website-id'], $_POST['user-id'], $_POST['username'], $_POST['password'], $_POST['email-address'], $_POST['comment']);
+            break;
+
 
 
     }
