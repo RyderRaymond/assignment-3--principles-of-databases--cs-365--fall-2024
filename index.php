@@ -1,3 +1,33 @@
+<?php
+require_once "includes/config.php";
+require_once "includes/helpers.php";
+
+$option = (isset($_POST['submitted']) ? $_POST['submitted'] : null);
+
+if ($option != null) {
+    switch ($option) {
+        case 1:
+            search($_POST['search-term'], $_POST['table-to-search']);
+            break;
+        case 2:
+            update($_POST['update-attribute'], $_POST['new-value'], $_POST['query-attribute'], $_POST['pattern']);
+            break;
+        case 3:
+            insert_user($_POST['user-first-name'], $_POST['user-last-name']);
+            break;
+        case 4:
+            insert_website($_POST['website-name'], $_POST['website-url']);
+            break;
+        case 5:
+            insert_account($_POST['website-id'], $_POST['user-id'], $_POST['username'], $_POST['password'], $_POST['email-address'], $_POST['comment']);
+            break;
+        case 6:
+            delete($_POST['delete-from'], $_POST['delete-query-attribute'], $_POST['delete-pattern']);
+            break;
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -139,42 +169,34 @@
         <fieldset>
         <legend>Delete a User, Website, or Account</legend>
         <p>
-            <label for="first-name">Search Term:</label>
-            <input required autofocus type="text" id="search-term" name="search-term">
+            <label for="delete-from">Table to Delete from:</label>
+            <select name="delete-from" id="delete-from">
+                <option>users</option>
+                <option>websites</option>
+                <option>accounts</option>
+            </select>
+        </p>
+        <p>
+            <label for="deelte-query-attribute">Query to Match off of:</label>
+            <select name="delete-query-attribute" id="delete-query-attribute">
+                <option>first_name</option>
+                <option>last_name</option>
+                <option>user_id</option>
+                <option>site_name</option>
+                <option>url</option>
+                <option>site_id</option>
+                <option>username</option>
+                <option>password</option>
+                <option>email_address</option>
+                <option>comment</option>
+                <option>time_stamp</option>
+            </select>
+            <label for="delete-pattern">Value to match off of:</label>
+            <input type="text" id="delete-pattern" name="delete-pattern">
         </p>
         <p><input type="hidden" name="submitted" value="6"></p>
-        <p><input id="search-button" type="submit" value="search" /></p>
+        <p><input id="delete-button" type="submit" value="Delete" /></p>
         </fieldset>
     </form>
 </body>
 </html>
-
-<?php
-require_once "includes/config.php";
-require_once "includes/helpers.php";
-
-$option = (isset($_POST['submitted']) ? $_POST['submitted'] : null);
-
-if ($option != null) {
-    switch ($option) {
-        case 1:
-            search($_POST['search-term'], $_POST['table-to-search']);
-            break;
-        case 2:
-            update($_POST['update-attribute'], $_POST['new-value'], $_POST['query-attribute'], $_POST['pattern']);
-            break;
-        case 3:
-            insert_user($_POST['user-first-name'], $_POST['user-last-name']);
-            break;
-        case 4:
-            insert_website($_POST['website-name'], $_POST['website-url']);
-            break;
-        case 5:
-            insert_account($_POST['website-id'], $_POST['user-id'], $_POST['username'], $_POST['password'], $_POST['email-address'], $_POST['comment']);
-            break;
-
-
-
-    }
-}
-?>
