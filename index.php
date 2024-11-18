@@ -19,7 +19,7 @@
             <input type="text" id="search-term" name="search-term">
         </p>
         <input type="hidden" name="submitted" value="1">
-        <p><input id="search-button" type="submit" value="search" /></p>
+        <p><input id="search-button" type="submit" value="Search" /></p>
         </fieldset>
     </form>
     <form id="update" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -62,18 +62,68 @@
             <input type="text" id="pattern" name="pattern">
         </p>
         <p><input type="hidden" name="submitted" value="2"></p>
-        <p><input id="update-button" type="submit" value="update" /></p>
+        <p><input id="update-button" type="submit" value="Update" /></p>
         </fieldset>
     </form>
-    <form id="insert" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+    <form id="insert-user" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <fieldset>
-        <legend>Add a new User, Website, or Account</legend>
+        <legend>Add a New User</legend>
         <p>
-            <label for="first-name">Search Term:</label>
-            <input required autofocus type="text" id="search-term" name="search-term">
+            <label for="user-first-name">User's First Name:</label>
+            <input type="text" name="user-first-name" placeholder="Jim" required>
+        </p>
+        <p>
+            <label for="user-last-name">User's Last Name:</label>
+            <input type="text" name="user-last-name" placeholder="Bob" required>
         </p>
         <p><input type="hidden" name="submitted" value="3"></p>
-        <p><input id="search-button" type="submit" value="search" /></p>
+        <p><input id="insert-user-button" type="submit" value="Add User" /></p>
+        </fieldset>
+    </form>
+    <form id="insert-website" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <fieldset>
+        <legend>Add a New Website</legend>
+        <p>
+            <label for="website-name">Website Name:</label>
+            <input type="text" name="website-name" placeholder="Example Website" required>
+        </p>
+        <p>
+            <label for="website-url">Website URL:</label>
+            <input type="url" name="website-url" placeholder="https://example.com" required>
+        </p>
+        <p><input type="hidden" name="submitted" value="4"></p>
+        <p><input id="insert-website-button" type="submit" value="Add Website" /></p>
+        </fieldset>
+    </form>
+    <form id="insert-account" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+        <fieldset>
+        <legend>Register a New Account</legend>
+        <p>
+            <label for="website-id">Website ID:</label>
+            <input type="text" name="website-id" placeholder="Enter a Number" required>
+        </p>
+        <p>
+            <label for="user-id">User ID:</label>
+            <input type="text" name="user-id" placeholder="Enter a Number" required>
+        </p>
+        <p>
+            <label for="username">Username</label>
+            <input type="text" name="username" placeholder="username" required>
+        </p>
+        <p>
+            <label for="password">Password:</label>
+            <input type="password" name="password" required>
+        </p>
+        <p>
+            <label for="email-address">Email:</label>
+            <input type="email" name="email-address" placeholder="username@example.com" required>
+        </p>
+        <p>
+            <label for="comment">Comment:</label>
+            <textarea id="comment" name="comment" rows="5" cols="35"></textarea>
+        </p>
+        <p><input type="hidden" name="submitted" value="5"></p>
+        <p><input id="insert-website-button" type="submit" value="Register" /></p>
         </fieldset>
     </form>
     <form id="delete" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -83,7 +133,7 @@
             <label for="first-name">Search Term:</label>
             <input required autofocus type="text" id="search-term" name="search-term">
         </p>
-        <p><input type="hidden" name="submitted" value="4"></p>
+        <p><input type="hidden" name="submitted" value="6"></p>
         <p><input id="search-button" type="submit" value="search" /></p>
         </fieldset>
     </form>
@@ -104,6 +154,11 @@ if ($option != null) {
         case 2:
             update($_POST['update-attribute'], $_POST['new-value'], $_POST['query-attribute'], $_POST['pattern']);
             break;
+        case 3:
+            insert_user($_POST['user-first-name'], $_POST['user-last-name']);
+            break;
+
+
     }
 }
 
