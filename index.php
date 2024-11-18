@@ -177,7 +177,7 @@ if ($option != null) {
             </select>
         </p>
         <p>
-            <label for="deelte-query-attribute">Query to Match off of:</label>
+            <label for="delte-query-attribute">Query to Match off of:</label>
             <select name="delete-query-attribute" id="delete-query-attribute">
                 <option>first_name</option>
                 <option>last_name</option>
