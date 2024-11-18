@@ -25,11 +25,43 @@
         <fieldset>
         <legend>Update a User, Website, or Account</legend>
         <p>
-            <label for="first-name">Search Term:</label>
-            <input required autofocus type="text" id="search-term" name="search-term">
+            <label for="update-attribute">Attribute to Update:</label>
+            <select name="update-attribute" id="update-attribute">
+                <option>first_name</option>
+                <option>last_name</option>
+                <option>user_id</option>
+                <option>site_name</option>
+                <option>url</option>
+                <option>site_id</option>
+                <option>username</option>
+                <option>password</option>
+                <option>email_address</option>
+                <option>comment</option>
+                <option>time_stamp</option>
+            </select>
+            <label for="new-value">New Value for this Attribute:</label>
+            <input type="text" id="new-value" name="new-value">
         </p>
-        <p><input type="hidden" name="submitted" value="1"></p>
-        <p><input id="search-button" type="submit" value="search" /></p>
+        <p>
+            <label for="query-attribute">Attribute to Match off of:</label>
+            <select name="query-attribute" id="query-attribute">
+                <option>first_name</option>
+                <option>last_name</option>
+                <option>user_id</option>
+                <option>site_name</option>
+                <option>url</option>
+                <option>site_id</option>
+                <option>username</option>
+                <option>password</option>
+                <option>email_address</option>
+                <option>comment</option>
+                <option>time_stamp</option>
+            </select>
+            <label for="pattern">Value to match off of:</label>
+            <input type="text" id="pattern" name="pattern">
+        </p>
+        <p><input type="hidden" name="submitted" value="2"></p>
+        <p><input id="update-button" type="submit" value="update" /></p>
         </fieldset>
     </form>
     <form id="insert" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
@@ -39,7 +71,7 @@
             <label for="first-name">Search Term:</label>
             <input required autofocus type="text" id="search-term" name="search-term">
         </p>
-        <p><input type="hidden" name="submitted" value="1"></p>
+        <p><input type="hidden" name="submitted" value="3"></p>
         <p><input id="search-button" type="submit" value="search" /></p>
         </fieldset>
     </form>
@@ -50,7 +82,7 @@
             <label for="first-name">Search Term:</label>
             <input required autofocus type="text" id="search-term" name="search-term">
         </p>
-        <p><input type="hidden" name="submitted" value="1"></p>
+        <p><input type="hidden" name="submitted" value="4"></p>
         <p><input id="search-button" type="submit" value="search" /></p>
         </fieldset>
     </form>
@@ -67,6 +99,10 @@ if ($option != null) {
     switch ($option) {
         case 1:
             search($_POST['search-term']);
+            break;
+        case 2:
+            update($_POST['update-attribute'], $_POST['new-value'], $_POST['query-attribute'], $_POST['pattern']);
+            break;
     }
 }
 
