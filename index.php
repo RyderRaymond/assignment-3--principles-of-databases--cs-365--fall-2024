@@ -13,7 +13,16 @@
     </form>
     <form id="search" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <fieldset>
-        <legend>Search all Entries for this Term</legend>
+        <legend>Search for this Term</legend>
+        <p>
+            <label for="table-to-search">Select the Table to Search in:</label>
+            <select name="table-to-search" id="table-to-search">
+                <option>Users</option>
+                <option>Websites</option>
+                <option>Accounts</option>
+                <option>Full Entries</option>
+            </select>
+        </p>
         <p>
             <label for="search-term">Search Term:</label>
             <input type="text" id="search-term" name="search-term">
@@ -149,7 +158,7 @@ $option = (isset($_POST['submitted']) ? $_POST['submitted'] : null);
 if ($option != null) {
     switch ($option) {
         case 1:
-            search($_POST['search-term']);
+            search($_POST['search-term'], $_POST['table-to-search']);
             break;
         case 2:
             update($_POST['update-attribute'], $_POST['new-value'], $_POST['query-attribute'], $_POST['pattern']);
@@ -161,6 +170,4 @@ if ($option != null) {
 
     }
 }
-
-
 ?>
