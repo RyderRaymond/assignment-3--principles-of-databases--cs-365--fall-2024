@@ -1,5 +1,8 @@
 <?php
 
+/*
+Search function. Takes in a term to search for and and a table and searches all entries in the table for the search term.
+*/
 function search($search, $table) {
     try {
         $db = new PDO(
@@ -8,12 +11,14 @@ function search($search, $table) {
             DBPASS
         );
 
+        //Set the encryption mode. I don't set the key string and init vector because I have them as a constant
         $set_encryption_mode_query = "SET block_encryption_mode = 'aes-256-cbc';";
         $statement = $db -> prepare($set_encryption_mode_query);
         $statement -> execute();
 
+        //We want to search for users who have registered at a website
         if ("Full Entries" === $table) {
-            $select_query = "SELECT user_id, first_name, last_name, site_id, site_name, url, username, CAST(AES_DECRYPT(password, " . KEY_STR .", " . INIT_VECTOR . ") AS CHAR) AS 'password', email_address, comment, time_stamp FROM registers_at JOIN users USING (user_id) JOIN websites USING (site_id) WHERE site_id LIKE '%$search%' OR user_id LIKE '%$search%' OR first_name LIKE '%$search%' OR last_name LIKE '%$search%' OR username LIKE '%$search%' OR password LIKE '%$search%' OR email_address LIKE '%$search%' OR comment LIKE '%$search%' OR time_stamp LIKE '%$search%' OR site_name LIKE '%$search%' OR url LIKE '%$search%';";
+            $select_query = "SELECT user_id, first_name, last_name, site_id, site_name, url, username, CAST(AES_DECRYPT(password, " . KEY_STR .", " . INIT_VECTOR . ") AS CHAR) AS 'password', email_address, comment, time_stamp FROM registers_at JOIN users USING (user_id) JOIN websites USING (site_id) WHERE site_id LIKE '%{$search}%' OR user_id LIKE '%{$search}%' OR first_name LIKE '%{$search}%' OR last_name LIKE '%{$search}%' OR username LIKE '%{$search}%' OR password LIKE '%{$search}%' OR email_address LIKE '%{$search}%' OR comment LIKE '%{$search}%' OR time_stamp LIKE '%{$search}%' OR site_name LIKE '%{$search}%' OR url LIKE '%{$search}%';";
             $statement = $db -> prepare($select_query);
             $statement -> execute();
 
@@ -58,8 +63,8 @@ function search($search, $table) {
                 echo "      </table>\n";
             }
         }
-        else if ("Users" === $table) {
-            $select_query = "SELECT first_name, last_name, user_id FROM users WHERE user_id LIKE '%$search%' OR first_name LIKE '%$search%' OR last_name LIKE '%$search%';";
+        else if ("Users" === $table) { //Search only users table
+            $select_query = "SELECT first_name, last_name, user_id FROM users WHERE user_id LIKE '%{$search}%' OR first_name LIKE '%{$search}%' OR last_name LIKE '%{$search}%';";
             $statement = $db -> prepare($select_query);
             $statement -> execute();
 
@@ -88,8 +93,8 @@ function search($search, $table) {
                 echo "      </table>\n";
             }
         }
-        else if ("Websites" === $table) {
-            $select_query = "SELECT site_name, url, site_id FROM websites WHERE site_id LIKE '%$search%' OR site_name LIKE '%$search%' OR url LIKE '%$search%';";
+        else if ("Websites" === $table) { //Search websites table
+            $select_query = "SELECT site_name, url, site_id FROM websites WHERE site_id LIKE '%{$search}%' OR site_name LIKE '%{$search}%' OR url LIKE '%{$search}%';";
             $statement = $db -> prepare($select_query);
             $statement -> execute();
 
@@ -118,8 +123,8 @@ function search($search, $table) {
                 echo "      </table>\n";
             }
         }
-        else if ("Accounts" === $table) {
-            $select_query = "SELECT user_id, site_id, username, CAST(AES_DECRYPT(password, " . KEY_STR .", " . INIT_VECTOR . ") AS CHAR) AS 'password', email_address, comment, time_stamp FROM registers_at WHERE site_id LIKE '%$search%' OR user_id LIKE '%$search%' OR username LIKE '%$search%' OR password LIKE '%$search%' OR email_address LIKE '%$search%' OR comment LIKE '%$search%' OR time_stamp LIKE '%$search%';";
+        else if ("Accounts" === $table) { //Search only accounts table
+            $select_query = "SELECT user_id, site_id, username, CAST(AES_DECRYPT(password, " . KEY_STR .", " . INIT_VECTOR . ") AS CHAR) AS 'password', email_address, comment, time_stamp FROM registers_at WHERE site_id LIKE '%{$search}%' OR user_id LIKE '%{$search}%' OR username LIKE '%{$search}%' OR password LIKE '%{$search}%' OR email_address LIKE '%{$search}%' OR comment LIKE '%{$search}%' OR time_stamp LIKE '%{$search}%';";
             $statement = $db -> prepare($select_query);
             $statement -> execute();
 
@@ -167,6 +172,9 @@ function search($search, $table) {
     }
 }
 
+/*
+Update function. Updates the attribute in the correct table based on another attribute in the same or different table
+*/
 function update($update_attribute, $new_value, $query_attribute, $pattern) {
     try {
         $db = new PDO(
@@ -195,11 +203,12 @@ function update($update_attribute, $new_value, $query_attribute, $pattern) {
             $new_value = "\"{$new_value}\"";
         }
 
+        //Same as update attribute. Make querying off of passwords easy.
         if ("password" === $query_attribute) {
             $query_attribute = "CAST(AES_DECRYPT(password, " . KEY_STR .", " . INIT_VECTOR . ") AS CHAR)";
         }
         if ("site_id" === $query_attribute) {
-            $query_attribute = "websites.site_id";
+            $query_attribute = "websites.site_id"; //still need to clarify when we use IDs
         }
         if ("user_id" === $query_attribute) {
             $query_attribute = "users.user_id";

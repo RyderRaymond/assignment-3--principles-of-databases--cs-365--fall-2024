@@ -2,7 +2,7 @@
 DROP DATABASE IF EXISTS student_passwords;
 CREATE DATABASE student_passwords;
 
-/* Create a new user for this database. Not required, but included anyway.*/
+/* Create a new user for this database.*/
 DROP USER IF EXISTS 'passwords_user'@'localhost';
 CREATE USER 'passwords_user'@'localhost' IDENTIFIED BY 'HVGyt789uIOJknbhvgytf&^89uionjk';
 GRANT ALL PRIVILEGES ON student_passwords.*  TO 'passwords_user'@'localhost';
