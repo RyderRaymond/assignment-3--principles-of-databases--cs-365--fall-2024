@@ -2,7 +2,7 @@
   --primary-color: #fff;
   --background-color: #191919;
   --border-color: #666;
-  --background-color--button: #f00;
+  --background-color--button: #ff7b00;
   --legend-content-color: rgb(0, 225, 255);
   --notification-banner-background-color: #ffc0cb;
   --drop-down-menu-background-color: #999;
@@ -107,6 +107,14 @@ form input[type="submit"] {
   font-size: .8em;
 }
 
+form textarea {
+  border: 1px solid var(--color-six);
+  padding: 5px;
+  background-color: var(--background-color);
+  color: var(--primary-color);
+  vertical-align: top;
+}
+
 h1 {
   text-align: center;
 }
@@ -118,13 +126,14 @@ p {
 #clear-results {
   position: fixed;
   top: 20px;
-  left: 0;
+  left: 0px;
   margin-left: 8px;
   text-align: left;
 }
 
 #clear-results input {
   background-color: var(--background-color--button);
+  color: var(--background-color);
 }
 
 #error {

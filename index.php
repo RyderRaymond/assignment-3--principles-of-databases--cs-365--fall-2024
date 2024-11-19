@@ -1,3 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Passwords Database</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <h1>Passwords Database</h1>
+
 <?php
 require_once "includes/config.php";
 require_once "includes/helpers.php";
@@ -28,16 +39,7 @@ if ($option != null) {
 }
 ?>
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Passwords Database</title>
-    <link rel="stylesheet" href="css/style.css">
-</head>
-<body>
-    <form id="clear-fields" method="post"
+    <form id="clear-results" method="post"
             action="<?php echo $_SERVER['PHP_SELF']; ?>">
         <input id="clear-form-button" type="submit" value="Clear all Fields">
     </form>
