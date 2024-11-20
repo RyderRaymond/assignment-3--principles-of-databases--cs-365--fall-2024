@@ -8,6 +8,10 @@
 </head>
 <body>
     <h1>Passwords Database</h1>
+    <form id="clear-results" method="post"
+            action="<?php echo $_SERVER['PHP_SELF']; ?>">
+        <input id="clear-form-button" type="submit" value="Clear Results and Fields">
+    </form>
 
 <?php
 require_once "includes/config.php";
@@ -39,10 +43,6 @@ if ($option != null) {
 }
 ?>
 
-    <form id="clear-results" method="post"
-            action="<?php echo $_SERVER['PHP_SELF']; ?>">
-        <input id="clear-form-button" type="submit" value="Clear all Fields">
-    </form>
     <form id="search" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
         <fieldset>
         <legend>Search for this Term</legend>
