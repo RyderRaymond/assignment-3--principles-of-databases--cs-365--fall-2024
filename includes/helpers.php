@@ -222,6 +222,10 @@ function update($update_attribute, $new_value, $query_attribute, $pattern) {
         users and websites which have no associated accounts are left out, meaning we otherwise could not update them.
         To solve this, we really only need to update using more than one table if the query attribute is from a different table than the update attribute
         */
+
+        //If we use more than one table's attributes, we need to use all tables to update this attribute. This query does not include users that do not have an account or websites that have no accounts registered at it.
+        $query_string = "UPDATE users, websites, registers_at SET {$update_attribute} = {$new_value} WHERE {$query_attribute}=\"{$pattern}\" AND users.user_id = registers_at.user_id AND websites.site_id = registers_at.site_id;";
+
         //If we are just using users attributes, we only update users, which includes users that do not have accounts associated with it.
         if (("first_name" === $update_attribute || "last_name" === $update_attribute || "users.user_id" === $update_attribute) && ("first_name" === $query_attribute || "last_name" === $query_attribute || "users.user_id" === $query_attribute)) {
             $query_string = "UPDATE users SET {$update_attribute} = {$new_value} WHERE {$query_attribute}=\"{$pattern}\";";
@@ -229,10 +233,6 @@ function update($update_attribute, $new_value, $query_attribute, $pattern) {
         //If we are just using website attributes, only update websites, which includes websites that do not have websites associated with it
         else if (("site_name" === $update_attribute || "url" === $update_attribute || "websites.site_id" === $update_attribute) && ("site_name" === $query_attribute || "url" === $query_attribute || "websites.site_id" === $query_attribute)) {
             $query_string = "UPDATE websites SET {$update_attribute} = {$new_value} WHERE {$query_attribute}=\"{$pattern}\";";
-        }
-        else {
-        //Otherwise we need to use all tables to update this attribute. This query does not include users that do not have an account or websites that have no accounts registered at it.
-        $query_string = "UPDATE users, websites, registers_at SET {$update_attribute} = {$new_value} WHERE {$query_attribute}=\"{$pattern}\" AND users.user_id = registers_at.user_id AND websites.site_id = registers_at.site_id;";
         }
 
         $statement = $db -> prepare($query_string);
