@@ -99,7 +99,7 @@ if ($option != null) {
                 <option>comment</option>
                 <option>time_stamp</option>
             </select>
-            <label for="pattern">Value to match off of:</label>
+            <label for="pattern">Value to Match off of:</label>
             <input type="text" id="pattern" name="pattern">
         </p>
         <p><input type="hidden" name="submitted" value="2"></p>
@@ -193,7 +193,7 @@ if ($option != null) {
                 <option>comment</option>
                 <option>time_stamp</option>
             </select>
-            <label for="delete-pattern">Value to match off of:</label>
+            <label for="delete-pattern">Value to Match off of:</label>
             <input type="text" id="delete-pattern" name="delete-pattern">
         </p>
         <p><input type="hidden" name="submitted" value="6"></p>
