@@ -24,6 +24,7 @@ function search($search, $table) {
             $statement -> execute();
 
             if (count($statement -> fetchAll()) == 0) {
+                echo "<h2>No Search Results Found</h2>";
                 return 0;
             } else {
                 echo "      <table>\n";
@@ -70,6 +71,7 @@ function search($search, $table) {
             $statement -> execute();
 
             if (count($statement -> fetchAll()) == 0) {
+                echo "<h2>No Search Results Found</h2>";
                 return 0;
             } else {
                 echo "      <table>\n";
@@ -101,6 +103,7 @@ function search($search, $table) {
             $statement -> execute();
 
             if (count($statement -> fetchAll()) == 0) {
+                echo "<h2>No Search Results Found</h2>";
                 return 0;
             } else {
                 echo "      <table>\n";
@@ -131,6 +134,7 @@ function search($search, $table) {
             $statement -> execute();
 
             if (count($statement -> fetchAll()) == 0) {
+                echo "<h2>No Search Results Found</h2>";
                 return 0;
             } else {
                 echo "      <table>\n";
